@@ -1,0 +1,38 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: flexible-redis
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  backend:
+    build:
+      context: ./backend
+    container_name: flexible-backend
+    depends_on:
+      - redis
+    ports:
+      - "${BACKEND_PORT:-18080}:8080"
+    env_file:
+      - .env.docker
+    environment:
+      REDIS_HOST: redis
+      FILE_UPLOAD_DIR: /app/uploads
+    volumes:
+      - backend-uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:18080}
+    container_name: flexible-frontend
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-18073}:80"
+
+volumes:
+  redis-data:
+  backend-uploads:

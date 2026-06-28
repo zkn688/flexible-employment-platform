@@ -1,0 +1,43 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.docker.example
+backend/.env
+frontend/.env
+.env.docker
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE and system files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs and runtime uploads
+logs/
+*.log
+uploads/
+backend/uploads/
+
+# Generated report assets
+docs/report_assets/
+docs/final_report_v2_assets/
